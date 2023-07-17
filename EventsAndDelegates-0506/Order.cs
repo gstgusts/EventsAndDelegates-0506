@@ -6,13 +6,19 @@ using System.Threading.Tasks;
 
 namespace EventsAndDelegates_0506
 {
+    public delegate void OrderEventHandler();
+
     public class Order
     {
+        public event OrderEventHandler OnCreated;
+
         public void Create()
         {
             Console.WriteLine("Order created");
-            EmailService.Send();
-            SmsService.Send();
+
+            if (OnCreated != null) {
+                OnCreated();
+            }
         }
     }
 }
